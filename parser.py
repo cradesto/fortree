@@ -43,7 +43,7 @@ def check_init_value(key, val):
             print("---------------------------------------------------------------")
             print("ERROR: "+val+" is not a path to a Fortran file.")
             print("---------------------------------------------------------------")
-            sys.exit()              
+            sys.exit()
 
     elif (key == "TREE_ROOT_NAME"):
             val_out = val
@@ -59,7 +59,7 @@ def check_init_value(key, val):
         if val in ok_val:
             val_out = val
 
-    elif (key == "SHOW_ONLY_DEF"): 
+    elif (key == "SHOW_ONLY_DEF"):
         ok_val = ["YES","NO"]
         if val in ok_val:
             if(val == "NO"):
@@ -75,7 +75,7 @@ def check_init_value(key, val):
                 print("---------------------------------------------------------------")
                 print("ERROR: Number of levels need to be greater than 1.")
                 print("---------------------------------------------------------------")
-                sys.exit()               
+                sys.exit()
 
     elif (key == "OUTPUT_NAME"):
         match = re.findall("\w+", val)
@@ -108,7 +108,7 @@ def get_match(key, path, key_in = False, key_out = False):
     """
     Returns an array of words given after the key in the file accessed by path.
     key can be a couple of words.
-    """ 
+    """
 
     # local variables
     outpout = []
@@ -128,7 +128,7 @@ def get_match(key, path, key_in = False, key_out = False):
             result = re.findall(re_key_in_out, file.read(), re.IGNORECASE | re.MULTILINE)
             file.close()
             if result:
-               matches = re.findall(re_key, result[0], re.IGNORECASE | re.MULTILINE)            
+               matches = re.findall(re_key, result[0], re.IGNORECASE | re.MULTILINE)
 
         elif(key_in and key_out == False):
             re_key_in = get_re(key_in)
@@ -139,7 +139,7 @@ def get_match(key, path, key_in = False, key_out = False):
             matches = re.findall(re_key, result[0], re.IGNORECASE | re.MULTILINE)
 
         elif(key_in == False and key_out == False):
-            
+
             file = open(path,"r")
             #with open(path, 'rb') as file:
             matches = re.findall(re_key, file.read(), re.IGNORECASE | re.MULTILINE)
@@ -154,9 +154,9 @@ def get_match(key, path, key_in = False, key_out = False):
         # Prepare output
         for match in matches:
             outpout.append(match[1])
-        
+
     return outpout
-    
+
 
 
 
@@ -164,7 +164,7 @@ def get_match(key, path, key_in = False, key_out = False):
 def parse(key, target , key_in=False, key_out=False, output_file=True):
     """
     key: word or couple of words to match.
-    target: path or directory name in which search for matches. 
+    target: path or directory name in which search for matches.
     key_in and key_out: give part of the file to consider. Values false by default = parse the whole file.
     output_file = True => the output file given is the one in which the match has been found
     output_file = False => no output file
@@ -172,7 +172,7 @@ def parse(key, target , key_in=False, key_out=False, output_file=True):
     #print("++++++++++ input ++++++++++")
     #print(key)
     #print(target)
-    
+
     if(output_file):
         temp_output = np.array(["name","path"],dtype='U200')
     else:
@@ -227,7 +227,7 @@ def parse(key, target , key_in=False, key_out=False, output_file=True):
         print("---------------------------------------------------------------")
         print("ERROR: ", target, " isn't a path or a directory.")
         print("---------------------------------------------------------------")
-        sys.exit()   
+        sys.exit()
 
 
     if np.size(temp_output) > 2:
@@ -238,10 +238,14 @@ def parse(key, target , key_in=False, key_out=False, output_file=True):
 
 
 def is_fortran_extension_file(path):
-    match = re.search("(\w+.f)", path, re.IGNORECASE)
-    if match:
-        return match[0]
+    # match = re.search("(\w+.f)", path, re.IGNORECASE)
+    # if match:
+    #     return match[0]
+    # else:
+    #     return False
+
+    # ext = path.lower().rpartition('.')[-1];
+    if path.lower().endswith(('.f', '.f90')):
+        return os.path.basename(path)
     else:
         return False
-
-
