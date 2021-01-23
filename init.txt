@@ -1,18 +1,32 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! This is your initialization file for Fortree. !
-! Here is how you use it:						!
-! ~$ Python3 fortree.py init.txt				!
+! Here is how you use it:						            !
+! ~$ Python3 fortree.py init.txt				        !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-TREE_ROOT_NAME					evolve															# Name of the part of the code to fortree.
-TREE_ROOT_TYPE 					MODULE 															# What is it ? Values: "PRGRAMM", "MODULE" or "ROUTINE".
-ROOT_FILE_PATH					/Users/esther/Research/Code/Phantom/src/main/evolve.F90			# Path to the root file.
-DIRECTORY_TO_PARSE				/Users/esther/Research/Code/Phantom/src							# Directory to your fortran files. 
+# for levels
+TREE_ROOT_NAME                  number_densities                                                              # Name of the part of the code to fortree.
+TREE_ROOT_TYPE                  MODULE                                                                        # What is it ? Values: "PROGRAM", "MODULE" or "ROUTINE".
+ROOT_FILE_PATH                  /home/marat/phys/astro/stella/branches/levels/levels/src/number_densities.f90 # Path to the root file.
+DIRECTORY_TO_PARSE              /home/marat/phys/astro/stella/branches/levels/levels                          # Directory to your fortran files.
 
-FORTREE_TYPE 					DEP_TREE		# What type of tree do you need ? CALL_TREE, DEF_TREE or DEP_TREE (modules dependencies, for modules only). 
+FORTREE_TYPE                    CALL_TREE                                                                     # What type of tree do you need ? CALL_TREE, DEF_TREE or DEP_TREE (modules dependencies, for modules only).
 If you chose CALL_TREE:
-SHOW_ONLY_DEF					YES				# Do you whant to display only the calls of functions defined in your code ? "YES" or "NO" (= show all the calls).
-N_LEVELS						3				# How many levels do you want to display ? Integer (make sure the levels exist, min val = 2) or "ALL".
+SHOW_ONLY_DEF                   NO                                                                            # Do you whant to display only the calls of functions defined in your code ? "YES" or "NO" (= show all the calls).
+N_LEVELS                        ALL                                                                           # How many levels do you want to display ? Integer (min val = 2) or "ALL".
 
-OUTPUT_NAME						evolve_dep	    # A name for your outputs ? (Default = fortree)
+OUTPUT_NAME                     number_densities_call                                                         # A name for your outputs ? (Default = fortree)
 
+
+# for phantom
+# TREE_ROOT_NAME                  evolve                       # Name of the part of the code to fortree.
+# TREE_ROOT_TYPE                  MODULE                       # What is it ? Values: "PROGRAM", "MODULE" or "ROUTINE".
+# ROOT_FILE_PATH                  phantom/src/main/evolve.F90  # Path to the root file.
+# DIRECTORY_TO_PARSE              /home/marat/phys/phantom/src # Directory to your fortran files.
+#
+# FORTREE_TYPE                    CALL_TREE                    # What type of tree do you need ? CALL_TREE, DEF_TREE or DEP_TREE (modules dependencies, for modules only).
+# If you chose CALL_TREE:
+# SHOW_ONLY_DEF                   YES                          # Do you whant to display only the calls of functions defined in your code ? "YES" or "NO" (= show all the calls).
+# N_LEVELS                        3                            # How many levels do you want to display ? Integer (min val = 2) or "ALL".
+#
+# OUTPUT_NAME                     evolve_call                  # A name for your outputs ? (Default = fortree)
